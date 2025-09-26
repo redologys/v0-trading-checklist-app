@@ -1,15 +1,20 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { StockSearch } from "@/components/stock-search"
 import { MarketStatus } from "@/components/market-status"
 import { MarketPrep } from "@/components/market-prep"
 import { TrendAnalysis } from "@/components/trend-analysis"
 import { EntryTriggers } from "@/components/entry-triggers"
-import { TechnicalIndicatorsDashboard } from "@/components/technical-indicators"
-import { RealTimeStatus } from "@/components/real-time-status"
-import { Notifications } from "@/components/notifications"
-import { MarketSentiment } from "@/components/market-sentiment"
+import { EnhancedTechnicalAnalysis } from "@/components/enhanced-technical-analysis"
+import { FundamentalSnapshot } from "@/components/fundamental-snapshot"
+import { AdvancedSentimentInsights } from "@/components/advanced-sentiment-insights"
+import { RiskPortfolioAnalysis } from "@/components/risk-portfolio-analysis"
+import { AITradeCoach } from "@/components/ai-trade-coach"
+import { AlertsNotificationSystem } from "@/components/alerts-notification-system"
+import { ExportFeatures } from "@/components/export-features"
+import { WatchlistManager } from "@/components/watchlist-manager"
+import { KeyboardShortcuts } from "@/components/keyboard-shortcuts"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { TrendingUp, TrendingDown } from "lucide-react"
@@ -20,6 +25,9 @@ import {
   type StockData,
   type TechnicalIndicators,
 } from "@/lib/stock-api"
+import { MarketSentiment } from "@/components/market-sentiment"
+import { Notifications } from "@/components/notifications"
+import { RealTimeStatus } from "@/components/real-time-status"
 
 export default function TradingChecklist() {
   const [selectedSymbol, setSelectedSymbol] = useState<string>("")
@@ -31,8 +39,17 @@ export default function TradingChecklist() {
   const [autoRefresh, setAutoRefresh] = useState(true)
   const [notifications, setNotifications] = useState(true)
   const [isConnected, setIsConnected] = useState(true)
+  const isMountedRef = useRef(true)
+
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
 
   const handleSymbolSelect = useCallback(async (symbol: string) => {
+    if (!isMountedRef.current) return
+
     setSelectedSymbol(symbol)
     setLoading(true)
     setError(null)
@@ -40,41 +57,47 @@ export default function TradingChecklist() {
     try {
       const [stock, technical] = await Promise.all([fetchStockData(symbol), fetchTechnicalIndicators(symbol)])
 
+      if (!isMountedRef.current) return
+
       setStockData(stock)
       setTechnicalData(technical)
       setLastUpdate(new Date())
       setIsConnected(true)
     } catch (err) {
+      if (!isMountedRef.current) return
+
       setError(err instanceof Error ? err.message : "Failed to fetch stock data")
       setStockData(null)
       setTechnicalData(null)
       setIsConnected(false)
     } finally {
-      setLoading(false)
+      if (isMountedRef.current) {
+        setLoading(false)
+      }
     }
-  }, [])
+  }, []) // Remove dependencies to prevent recreation
 
   const handleManualRefresh = useCallback(async () => {
-    if (selectedSymbol) {
+    if (selectedSymbol && isMountedRef.current) {
       await handleSymbolSelect(selectedSymbol)
     }
   }, [selectedSymbol, handleSymbolSelect])
 
-  // Auto-refresh logic with dynamic intervals
   useEffect(() => {
-    if (!selectedSymbol || !autoRefresh) return
+    if (!selectedSymbol || !autoRefresh || !isMountedRef.current) return
 
     const marketHours = getMarketHours()
     const interval = marketHours.isOpen ? 15000 : 60000 // 15s during market hours, 60s after hours
 
     const timer = setInterval(() => {
-      handleSymbolSelect(selectedSymbol)
+      if (isMountedRef.current && selectedSymbol) {
+        handleSymbolSelect(selectedSymbol)
+      }
     }, interval)
 
     return () => clearInterval(timer)
-  }, [selectedSymbol, autoRefresh, handleSymbolSelect])
+  }, [selectedSymbol, autoRefresh]) // Remove handleSymbolSelect from dependencies
 
-  // Connection status monitoring
   useEffect(() => {
     const checkConnection = () => {
       setIsConnected(navigator.onLine)
@@ -122,15 +145,19 @@ export default function TradingChecklist() {
         {/* Market Sentiment Indicator */}
         <MarketSentiment stockData={stockData} technicalData={technicalData} />
 
-        {/* Stock Search */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Select Stock Symbol</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <StockSearch onSymbolSelect={handleSymbolSelect} currentSymbol={selectedSymbol} />
-          </CardContent>
-        </Card>
+        {/* Stock Search and Watchlist */}
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>Select Stock Symbol</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <StockSearch onSymbolSelect={handleSymbolSelect} currentSymbol={selectedSymbol} />
+            </CardContent>
+          </Card>
+
+          <WatchlistManager onSymbolSelect={handleSymbolSelect} currentSymbol={selectedSymbol} />
+        </div>
 
         {/* Notifications */}
         <Notifications stockData={stockData} technicalData={technicalData} enabled={notifications} />
@@ -206,7 +233,13 @@ export default function TradingChecklist() {
               <MarketPrep stockData={stockData} />
               <TrendAnalysis stockData={stockData} technicalData={technicalData} />
               <EntryTriggers stockData={stockData} technicalData={technicalData} />
-              <TechnicalIndicatorsDashboard stockData={stockData} technicalData={technicalData} />
+              <EnhancedTechnicalAnalysis stockData={stockData} technicalData={technicalData} />
+              <FundamentalSnapshot stockData={stockData} />
+              <AdvancedSentimentInsights stockData={stockData} technicalData={technicalData} />
+              <RiskPortfolioAnalysis stockData={stockData} technicalData={technicalData} />
+              <AITradeCoach stockData={stockData} technicalData={technicalData} />
+              <AlertsNotificationSystem stockData={stockData} technicalData={technicalData} />
+              <ExportFeatures stockData={stockData} technicalData={technicalData} />
             </div>
           </>
         )}
@@ -224,6 +257,18 @@ export default function TradingChecklist() {
           />
         </div>
       </div>
+
+      {/* Keyboard Shortcuts */}
+      <KeyboardShortcuts
+        onRefresh={handleManualRefresh}
+        onToggleAutoRefresh={() => setAutoRefresh(!autoRefresh)}
+        onExport={() => {
+          /* Export functionality would be triggered here */
+        }}
+        onShare={() => {
+          /* Share functionality would be triggered here */
+        }}
+      />
     </div>
   )
 }
