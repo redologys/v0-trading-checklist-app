@@ -18,15 +18,15 @@ Professional stock analysis app with **real-time market data, sentiment analysis
 ---
 
 ## 🖼️ Screenshots
-
-### Dashboard
-![Trading Checklist Dashboard](./screenshots/dashboard.png)
+### Trading Checklist Dashboard
+<img width="1637" height="848" alt="dashboard" src="https://github.com/user-attachments/assets/62330743-2cf7-45a7-b4a5-ca9dec31e584" />
 
 ### Stock Analysis
-![Stock Analysis Example](./screenshots/analysis.png)
+<img width="1524" height="837" alt="analysis" src="https://github.com/user-attachments/assets/7e3cd381-210c-4ba7-9026-03126f0e2e5b" />
 
+### Entry Triggers
+<img width="1528" height="839" alt="entry" src="https://github.com/user-attachments/assets/18975e67-5b93-4b30-96b7-17ec8954bf07" />
 
-*(Replace with your own screenshots inside a `/screenshots` folder in the repo)*  
 
 ---
 
