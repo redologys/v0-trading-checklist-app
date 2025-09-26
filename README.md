@@ -19,11 +19,12 @@ Professional stock analysis app with **real-time market data, sentiment analysis
 
 ## 🖼️ Screenshots
 
-### Dashboard  
+### Dashboard
 ![Trading Checklist Dashboard](./screenshots/dashboard.png)
 
-### Stock Analysis  
+### Stock Analysis
 ![Stock Analysis Example](./screenshots/analysis.png)
+
 
 *(Replace with your own screenshots inside a `/screenshots` folder in the repo)*  
 
