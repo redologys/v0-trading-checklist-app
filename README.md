@@ -1,30 +1,83 @@
-# Trading checklist app
+# 📊 Trading Checklist App
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Professional stock analysis app with **real-time market data, sentiment analysis, and technical indicators** to help traders make smarter decisions.  
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/reds-projects-097030b3/v0-trading-checklist-app)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/5o9tFy9CLXs)
+🔗 **[Live Demo](https://your-vercel-link.vercel.app)**  
 
-## Overview
+---
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## 🚀 Features
+- 🔍 Search and analyze stocks in real-time  
+- 📈 Technical indicators: SMA, RSI, MACD, Bollinger Bands  
+- 📰 Market sentiment calculation (Bullish / Bearish / Neutral)  
+- ⏱️ Market status tracking (open/closed, session hours)  
+- 🔄 Real-time updates and manual refresh  
+- 🎨 Clean, modern UI designed for traders  
+- ☁️ Deployed with Vercel  
 
-## Deployment
+---
 
-Your project is live at:
+## 🖼️ Screenshots
 
-**[https://vercel.com/reds-projects-097030b3/v0-trading-checklist-app](https://vercel.com/reds-projects-097030b3/v0-trading-checklist-app)**
+### Dashboard  
+![Trading Checklist Dashboard](./screenshots/dashboard.png)
 
-## Build your app
+### Stock Analysis  
+![Stock Analysis Example](./screenshots/analysis.png)
 
-Continue building your app on:
+*(Replace with your own screenshots inside a `/screenshots` folder in the repo)*  
 
-**[https://v0.app/chat/projects/5o9tFy9CLXs](https://v0.app/chat/projects/5o9tFy9CLXs)**
+---
 
-## How It Works
+## 🛠️ Tech Stack
+- **Framework:** Next.js  
+- **Frontend:** React, TailwindCSS  
+- **Deployment:** Vercel  
+- **Data API:** Polygon.io  
+- **Other:** TypeScript (if applicable)  
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+---
+
+## 📦 Installation
+
+Clone the repository:
+```bash
+git clone https://github.com/your-username/v0-trading-checklist-app.git
+cd v0-trading-checklist-app
+Install dependencies:
+
+bash
+Copy code
+npm install
+# or
+yarn install
+Add your Polygon.io API key to a .env.local file:
+
+bash
+Copy code
+POLYGON_API_KEY=your_api_key_here
+Run the development server:
+
+bash
+Copy code
+npm run dev
+# or
+yarn dev
+Open http://localhost:3000 in your browser.
+
+📊 Roadmap
+ Add more technical indicators (EMA, VWAP)
+
+ Add sector/market heatmaps
+
+ Create beginner vs advanced analysis modes
+
+ Add daily/weekly market summary emails
+
+🤝 Contributing
+Contributions are welcome! Fork the repo, make changes, and submit a pull request.
+
+📜 License
+This project is licensed under the MIT License.
+
+⚡ Built for traders who want clarity, speed, and smarter stock decisions.
