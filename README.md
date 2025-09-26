@@ -2,7 +2,7 @@
 
 Professional stock analysis app with **real-time market data, sentiment analysis, and technical indicators** to help traders make smarter decisions.  
 
-🔗 **[Live Demo](https://your-vercel-link.vercel.app)**  
+🔗 **[Live Demo](https://tradingcheatcode.vercel.app/)**  
 
 ---
 
@@ -64,20 +64,3 @@ npm run dev
 # or
 yarn dev
 Open http://localhost:3000 in your browser.
-
-📊 Roadmap
- Add more technical indicators (EMA, VWAP)
-
- Add sector/market heatmaps
-
- Create beginner vs advanced analysis modes
-
- Add daily/weekly market summary emails
-
-🤝 Contributing
-Contributions are welcome! Fork the repo, make changes, and submit a pull request.
-
-📜 License
-This project is licensed under the MIT License.
-
-⚡ Built for traders who want clarity, speed, and smarter stock decisions.
